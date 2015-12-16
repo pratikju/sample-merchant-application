@@ -1,0 +1,15 @@
+<div >
+  <% if $edit and !$show%>
+    <p id="success">Article successfully updated with :-
+    </p>
+  <%elsif !$edit and !$show%>
+    <p id="success">Article successfully added with :-
+    </p>
+  <%else%>
+    <p><label>The article details are :- <label></p>
+  <% end %>
+</div>
+<p id="info">
+ <label>Title :</label>  <%=@article.title %> </br>
+ <label>Text :</label>  <%=@article.text %>
+</p>

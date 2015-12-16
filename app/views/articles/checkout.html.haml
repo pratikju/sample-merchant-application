@@ -1,0 +1,11 @@
+.table-responsive
+  %table.table.table-hover.table-condensed
+    %tr
+      %th.center Order ID
+      %th.center Payment ID
+      %th.center Amount
+    - @payments.each do |payment|
+      %tr.payrows{id: "#{payment.id}"}
+        %td.order_id.center= payment.order_id
+        %td.payment_id.center= payment.id
+        %td.state.center= payment.amount

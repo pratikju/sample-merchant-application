@@ -1,0 +1,9 @@
+
+<% if @article.errors.any? %>
+    $('#results').html('');
+    $('#error_explanation').html("<%= escape_javascript render(:partial => 'error') %>");
+
+<%else%>
+    clearForm()
+    $('#results').html("<%= escape_javascript render(:partial => 'result') %>");
+<%end%>
