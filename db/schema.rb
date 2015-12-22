@@ -14,13 +14,14 @@
 ActiveRecord::Schema.define(version: 20150706093010) do
 
   create_table "articles", force: :cascade do |t|
-    t.string   "order_id",     limit: 255
-    t.decimal  "amount",                     precision: 10
-    t.string   "currency",     limit: 255
-    t.text     "user_email",   limit: 65535
-    t.string   "product_desc", limit: 255
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.string   "order_id",             limit: 255
+    t.decimal  "amount",                             precision: 10, scale: 2
+    t.string   "currency",             limit: 255
+    t.text     "user_email",           limit: 65535
+    t.string   "product_desc",         limit: 255
+    t.boolean  "send_email_check_box", limit: 1,                              default: false
+    t.datetime "created_at",                                                                  null: false
+    t.datetime "updated_at",                                                                  null: false
   end
 
 end

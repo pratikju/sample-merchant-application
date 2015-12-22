@@ -1,0 +1,19 @@
+%h1 Listing items
+.table-responsive
+  %table.table.table-hover.table-condensed
+    %tr
+      %th Order ID
+      %th Amount
+      %th Currency
+      %th Product Description
+      %th User Email
+      %th Action
+    - @articles.each do |article|
+      %tr.articlerows{id: "#{article.id}"}
+        %td= article.order_id
+        %td= '%.2f' % article.amount
+        %td= article.currency
+        %td= article.product_desc
+        %td= article.user_email
+        %td= link_to 'Destroy', article_path(article), class: 'btn btn-warning', method: :delete, data: { confirm: 'Are you sure?' }
+= link_to 'New Item', new_article_path, class: 'btn btn-primary'

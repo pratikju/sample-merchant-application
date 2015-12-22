@@ -54,15 +54,28 @@ class ArticlesController < ApplicationController
   end
 
   def checkout
-    Apayi.client_id = '2e18fd35-3315-4257-8865-9481f474806d'
-    Apayi.secret_key = 'W+hjYq3YkUahW9PYsdQxAwK3s5fWvEkd6gcgIM6jx9l8FQEdqt97YWv59dYp2ndgctmRKXSQXAPfQlTWOBLycQ=='
-    url = Apayi::Payment.checkout(article_params)
-    redirect_to url.checkout_url
+    Apayi.client_id = 'e5b3e1cc-562c-4d04-8622-e53f6c96f980'
+    Apayi.secret_key = '7kF570lACrOBGqJwba+Y7fpTOPeu1gqRnxZIm9Urv/UOJ6p1FqSlA6KX2UZztZpT99KAAkQCkZ8Ww83YqXNPiw=='
+    begin
+      @article = Article.new(article_params)
+      @article.save!
+
+      url = Apayi::Payment.checkout(article_params)
+      if @article.send_email_check_box
+        PaymentMailer.email_checkout_url(article_params[:user_email], url.checkout_url).deliver_now
+      else
+        redirect_to url.checkout_url
+      end
+      
+    rescue Apayi::ApayiGenericError => err
+      render :file => "/public/500.html",  :status => 500
+      return
+    end
   end
 
   private
   def article_params
-    params.require(:article).permit(:order_id, :amount, :currency, :user_email, :product_desc)
+    params.require(:article).permit(:order_id, :amount, :currency, :user_email, :product_desc, :send_email_check_box)
   end
 
 end

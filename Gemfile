@@ -33,7 +33,7 @@ gem 'will_paginate-bootstrap'
 gem 'bootstrap-datepicker-rails'
 gem 'chardinjs-rails'
 # gem 'apayi', ''
-gem 'apayi', :git => 'http://scm-apayi.rssoftware.com/anirbang/apayi-ruby.git', :branch => 'work_payment_integration', :ref => '73ec5c9e0d45190852717d7be1d3ba0bf589afe2'
+gem 'apayi', :git => 'http://scm-apayi.rssoftware.com/anirbang/apayi-ruby.git', :branch => 'work_payment_integration', :ref => '89bf9e75a257ffb35fa8e8a5cf8b53fba9851d37'
 gem 'faker'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

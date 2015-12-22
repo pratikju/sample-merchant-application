@@ -1,3 +1,10 @@
+:css
+  .btn-checkout{
+    color: #fff;
+    background-color: #1E5D84;
+    border-color: #1E5D84;
+  }
+
 .row
   .col-lg-6
     .panel.panel-primary
@@ -9,7 +16,7 @@
             = f.text_field :order_id, class: 'form-control', value: "OD#{Faker::Number.number(10)}"
           .form-group
             = f.label :Amount
-            = f.text_field :amount, class: 'form-control', value: Faker::Commerce.price
+            = f.text_field :amount, class: 'form-control', value: Faker::Commerce.price + 100
           .form-group
             = f.label :Currency
             = f.text_field :currency, class: 'form-control', value: 'INR'
@@ -19,15 +26,11 @@
           .form-group
             = f.label :User_Email
             = f.text_field :user_email, class: 'form-control', value: 'pratiks@rssoftware.co.in'
-
-          = f.submit 'Proceed To Checkout', class: 'btn btn-success'
-          %button#clear.btn.btn-default{:type => "button"} Clear
+          .form-group
+            .row
+              .col-xs-12
+                = f.check_box :send_email_check_box
+                Send url via mail
+                %br/
+          = f.submit 'Proceed to Checkout', class: 'btn btn-checkout'
 #results
-
-:javascript
-
-  $(function(){
-    $('#clear').click(function(){
-      $('#checkout_form')[0].reset();
-    });
-  });
