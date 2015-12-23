@@ -54,8 +54,8 @@ class ArticlesController < ApplicationController
   end
 
   def checkout
-    Apayi.client_id = 'e5b3e1cc-562c-4d04-8622-e53f6c96f980'
-    Apayi.secret_key = '7kF570lACrOBGqJwba+Y7fpTOPeu1gqRnxZIm9Urv/UOJ6p1FqSlA6KX2UZztZpT99KAAkQCkZ8Ww83YqXNPiw=='
+    Apayi.client_id = '<client_id>'
+    Apayi.secret_key = '<secret_key>'
     begin
       @article = Article.new(article_params)
       @article.save!
@@ -66,7 +66,7 @@ class ArticlesController < ApplicationController
       else
         redirect_to url.checkout_url
       end
-      
+
     rescue Apayi::ApayiGenericError => err
       render :file => "/public/500.html",  :status => 500
       return

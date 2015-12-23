@@ -22,8 +22,8 @@ Rails.application.configure do
   address:              'zmail.rssoftware.co.in',
   port:                 587,
   domain:               'rssoftware.co.in',
-  user_name:            'pratiks@rssoftware.co.in',
-  password:             'PKSSjvsbs980!@#',
+  user_name:            'apayi@rssoftware.co.in',
+  password:             'Light1521',
   authentication:       'login',
   openssl_verify_mode: 'none',
   enable_starttls_auto: true}
