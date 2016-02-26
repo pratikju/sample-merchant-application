@@ -1,0 +1,95 @@
+.row
+  .col-lg-6
+    .panel.panel-primary
+      .panel-heading.center Payment Page
+      .panel-body
+        = form_for :card, remote: true do |f|
+          .form-group
+            = f.label :Card_Number
+            = f.text_field :card_number, class: 'form-control', value: "4242424242424242"
+          .form-group
+            = f.label :Card_Holder_Name
+            = f.text_field :card_holder_name, class: 'form-control', value: "Pratik"
+          .form-group
+            = f.label :CVV
+            = f.text_field :cvv_2, class: 'form-control', value: '123'
+          .form-group
+            = f.label :Expiry
+            = f.text_field :expiry, class: 'form-control', value: '08/20'
+          = f.submit 'Pay', class: 'btn btn-success', id: 'submit'
+#message
+
+:javascript
+  $(function(){
+      $('#submit').off('click').on('click', function () {
+          var gateway, signatures, paymentDetails, orderDetails;
+          paymentDetails =  {
+              mode: 'card',
+              card_holder_name: $('#card_card_holder_name').val(),
+              card_number: $('#card_card_number').val(),
+              cvv_2: $('#card_cvv_2').val(),
+              expiry: $('#card_expiry').val(),
+              card_type: 'debit'
+          };
+
+          orderDetails =  {
+              order_id: 'OD2',
+              amount: '100.00',
+              currency: 'INR',
+              product_desc: 'T-shirt',
+              user_email: 'pratiks@gmail.com',
+              auto_capture: 'true'
+          };
+          signatures = {};
+          signatures.merchantSignature = get_signature(signatures, '934b8583-960e-410a-a4b2-dace29e196f9', 'unRFYzoabW65OcYnyhLks02Gk+gvAuIMOfgCWIk6Xo/cB6xuREYS0Ij9c/mn6NysDsxWR7yveZTo7pSXq94U/g==');
+          signatures.requestSignature = '';
+          gateway = $.apayi.gateway();
+          gateway.makePayment(signatures, orderDetails, paymentDetails, function(err, response) {
+              if (err) {
+                  $('#message').html(err);
+                  return;
+              }
+              $('#message').html(response);
+          });
+      });
+
+      var pad = function(n) {
+        if (n < 10) {
+          return "0" + n;
+        } else {
+          return n;
+        }
+      };
+      var timestamp = function() {
+
+        var day, dow, hours, minutes, month, now, seconds, year;
+        now = new Date();
+        year = now.getUTCFullYear();
+        month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][now.getUTCMonth()];
+        dow = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][now.getUTCDay()];
+        day = pad(now.getUTCDate());
+        hours = pad(now.getUTCHours());
+        minutes = pad(now.getUTCMinutes());
+        seconds = pad(now.getUTCSeconds());
+        return "" + dow + ", " + day + " " + month + " " + year + " " + hours + ":" + minutes + ":" + seconds + " GMT";
+      };
+
+      var get_signature = function(http_options, client_id, secret_key) {
+         http_options.header = {}
+         http_options.header.timestamp = timestamp();
+         http_options.url = $.apayi.endpoints.production + '/api/v1/checkout/createPayment.json';
+         console.log(http_options.url);
+         canonical_string = 'application/x-www-form-urlencoded' + ",";
+         canonical_string += '' + ",";
+         canonical_string += http_options.url + "," ;
+         canonical_string += http_options.header.timestamp;
+        console.log(canonical_string);
+         var key_signature = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA1, secret_key);
+         key_signature.update(canonical_string)
+         var final_signature = key_signature.finalize();
+         var hmac_signature_base64 = final_signature.toString(CryptoJS.enc.Base64);
+         console.log(hmac_signature_base64);
+         return client_id + ":" + hmac_signature_base64;
+     };
+
+  });

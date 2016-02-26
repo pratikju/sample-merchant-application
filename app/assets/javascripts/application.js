@@ -12,8 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require apayi
+//= require jquery.payment
 //= require turbolinks
 //= require bootstrap
+//= require hmac-sha1
+//= require enc-base64-min
+//= require sha1
 //= require_self
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js

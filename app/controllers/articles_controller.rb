@@ -54,24 +54,30 @@ class ArticlesController < ApplicationController
   end
 
   def checkout
-    Apayi.client_id = '<client_id>'
-    Apayi.secret_key = '<secret_key>'
-    begin
-      @article = Article.new(article_params)
-      @article.save!
+    # Apayi.client_id = '<client_id>'
+    # Apayi.secret_key = '<secret_key>'
+    # begin
+    @article = Article.new(article_params)
+    @article.save!
+    #
+    #   url = Apayi::Payment.checkout(article_params)
+    #   if @article.send_email_check_box
+    #     PaymentMailer.email_checkout_url(article_params[:user_email], url.checkout_url).deliver_now
+    #   else
+    #     redirect_to url.checkout_url
+    #   end
+    #
+    # rescue Apayi::ApayiGenericError => err
+    #   render :file => "/public/500.html",  :status => 500
+    #   return
+    # end
 
-      url = Apayi::Payment.checkout(article_params)
-      if @article.send_email_check_box
-        PaymentMailer.email_checkout_url(article_params[:user_email], url.checkout_url).deliver_now
-      else
-        redirect_to url.checkout_url
-      end
-
-    rescue Apayi::ApayiGenericError => err
-      render :file => "/public/500.html",  :status => 500
-      return
-    end
+    redirect_to checkout_new_articles_path
   end
+
+  def checkout_new
+  end
+
 
   private
   def article_params

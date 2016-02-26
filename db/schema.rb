@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706093010) do
+ActiveRecord::Schema.define(version: 20160219145738) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "order_id",             limit: 255
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 20150706093010) do
     t.boolean  "send_email_check_box", limit: 1,                              default: false
     t.datetime "created_at",                                                                  null: false
     t.datetime "updated_at",                                                                  null: false
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.string   "card_number",      limit: 255
+    t.string   "card_holder_name", limit: 255
+    t.string   "cvv_2",            limit: 255
+    t.string   "expiry",           limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
 end

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :articles do
     collection do
       post 'checkout'
+      get 'checkout_new'
+      post 'checkout_new'
     end
   end
 
