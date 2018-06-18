@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20160219145738) do
     t.string   "currency",             limit: 255
     t.text     "user_email",           limit: 65535
     t.string   "product_desc",         limit: 255
-    t.boolean  "send_email_check_box", limit: 1,                              default: false
+    t.boolean  "send_email_check_box",                                        default: false
     t.datetime "created_at",                                                                  null: false
     t.datetime "updated_at",                                                                  null: false
   end
